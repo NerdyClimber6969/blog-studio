@@ -1,0 +1,31 @@
+.font-hero {
+    font: var(--font-hero);
+}
+
+.font-xl {
+    font: var(--font1);
+}
+
+.font-lg {
+    font: var(--font2);
+}
+
+.font-md {
+    font: var(--font3);
+}
+
+.font-sm {
+    font: var(--font4)
+}
+
+.font-xs {
+    font: var(--font5)
+}
+
+.font-xxs {
+    font: var(--font6)
+}
+
+.bold {
+    font-weight: bold;
+}

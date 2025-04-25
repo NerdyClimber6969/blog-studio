@@ -1,0 +1,9 @@
+.svg-icon {
+    width: 35px;
+    height: 100%;
+    stroke: var(--color-base-content);
+}
+
+.svg-icon.fill {
+    fill: var(--color-base-content);
+}

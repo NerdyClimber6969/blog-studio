@@ -1,0 +1,110 @@
+:root {
+    --radius-selector: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 4rem;
+    --border: 2px;
+    --depth: 1;
+    --noise: 0;
+
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --white: #FFF;
+    --black: #2E2B29;
+    --black-contrast: #110F0E;
+    --gray-1: rgba(61, 37, 20, .05);
+    --gray-2: rgba(61, 37, 20, .08);
+    --gray-3: rgba(61, 37, 20, .12);
+    --gray-4: rgba(53, 38, 28, .3);
+    --gray-5: rgba(28, 25, 23, .6);
+    --green: #22C55E;
+    --purple: #6A00F5;
+    --purple-contrast: #5800CC;
+    --purple-light: rgba(88, 5, 255, .05);
+    --yellow-contrast: #FACC15;
+    --yellow: rgba(250, 204, 21, .4);
+    --yellow-light: #FFFAE5;
+    --red: #FF5C33;
+    --red-light: #FFEBE5;
+    --shadow: 0px 12px 33px 0px rgba(0, 0, 0, .06), 0px 3.618px 9.949px 0px rgba(0, 0, 0, .04);
+
+    --font-hero: 4rem "Fira Sans", sans-serif;
+    --font1: 2.5rem "Fira Sans", sans-serif;
+    --font2: 2.2rem "Fira Sans", sans-serif;
+    --font3: 1.6rem "Fira Sans", sans-serif;
+    --font4: 1.2rem "Fira Sans", sans-serif;
+    --font5: 1rem "Fira Sans", sans-serif;
+    --font6: 0.8rem "Fira Sans", sans-serif;
+
+    --spacing1: 4px;
+    --spacing2: 8px;
+    --spacing3: 15px;
+    --spacing4: 30px;
+    --spacing5: 40px;
+    --spacing6: 60px;
+    --spacing7: 80px;
+    --spacing8: 160px;
+}
+
+:root.dark {
+    --color-base-100: oklch(25.33% 0.016 252.42);
+    --color-base-200: oklch(23.26% 0.014 253.1);
+    --color-base-300: oklch(21.15% 0.012 254.09);
+    --color-base-content: oklch(97.807% 0.029 256.847);
+    --color-base-content-disabled: hsla(0, 0%, 100%, 0.9);
+    --color-primary: oklch(58% 0.233 277.117);
+    --color-primary-content: oklch(96% 0.018 272.314);
+    --color-secondary: oklch(65% 0.241 354.308);
+    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(38% 0.063 188.416);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-skeleton: hsl(200, 2%, 25%);
+    --color-skeleton-loading: linear-gradient(
+        90deg, hsla(200, 2%, 25%, 0) 42%, 
+        hsla(210, 2%, 30%, 0.7) 50%, 
+        hsla(200, 2%, 25%, 0) 58%
+    ); 
+    --color-editor-button: hsla(20, 100%, 80%, 0.08);
+    --color-button-disabled: hsla(24, 10%, 100%, 0.3);
+    --hover-brigntness: 70%
+}
+
+:root.light {
+    --color-base-100: oklch(98% 0.002 247.839);
+    --color-base-200: oklch(96% 0.003 264.542);
+    --color-base-300: oklch(92% 0.006 264.531);
+    --color-base-content: oklch(21% 0.034 264.665);
+    --color-base-content-disabled: hsla(24, 31%, 16%, 0.3);
+    --color-primary: oklch(72% 0.219 149.579);
+    --color-primary-content: oklch(98% 0.018 155.826);
+    --color-secondary: oklch(76% 0.188 70.08);
+    --color-secondary-content: oklch(98% 0.022 95.277);
+    --color-accent: oklch(60% 0.25 292.717);
+    --color-accent-content: oklch(96% 0.016 293.756);
+    --color-neutral: oklch(27% 0.033 256.848);
+    --color-neutral-content: oklch(98% 0.002 247.839);
+    --color-info: oklch(71% 0.143 215.221);
+    --color-info-content: oklch(98% 0.019 200.873);
+    --color-success: oklch(69% 0.17 162.48);
+    --color-success-content: oklch(97% 0.021 166.113);
+    --color-warning: oklch(76% 0.188 70.08);
+    --color-warning-content: oklch(98% 0.022 95.277);
+    --color-skeleton: hsl(220, 6%, 90%);
+    --color-skeleton-loading: linear-gradient(
+        90deg, hsla(220, 6%, 80%, 0) 42%, 
+        hsla(220, 6%, 95%, 0.7) 50%, 
+        hsla(220, 6%, 80%, 0) 58%
+    ); 
+    --color-editor-button: hsla(25, 51%, 16%, 0.17);
+    --color-button-disabled: hsla(25, 51%, 16%, 0.05);
+    --hover-brigntness: 0%
+}

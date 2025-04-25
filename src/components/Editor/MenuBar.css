@@ -1,0 +1,27 @@
+.menu-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing1);
+
+  & button {
+    background-color: var(--color-editor-button);
+    color: var(--color-base-content);
+    font: var(--font6);
+    padding: var(--spacing2) var(--spacing3);
+  }
+
+  & button:disabled {
+    background: var(--color-button-disabled);
+    color: var(--color-base-content-disabled);
+  }
+
+  & button:not(.is-active, :disabled):hover {
+    filter: brightness(var(--hover-brigntness));
+  }
+
+  & button.is-active {
+    background-color: var(--purple);
+    color: var(--white)
+  }
+}

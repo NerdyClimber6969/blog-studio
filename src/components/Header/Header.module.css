@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing3) 0;
+    padding-left: var(--spacing2);
+    padding-right: var(--spacing4);
+}
+
+.leftContainer {
+    display: flex;
+    gap: var(--spacing4);
+    align-items: center;
+}
+
+.toggle {
+    background-color: transparent;
+    padding: var(--spacing2);
+}
+
+.navBar {
+    gap: var(--spacing5);
+    font-size: large;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 880px) {
+    .header {
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}

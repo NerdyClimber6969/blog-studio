@@ -1,0 +1,27 @@
+.sideBar {
+    padding: var(--spacing2);
+}
+
+.item {
+    border-radius: var(--radius-field);
+}
+
+.item:hover {
+    background: var(--color-primary);
+}
+
+.link {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: var(--spacing3);
+    padding: var(--spacing2);
+}
+
+.show {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}

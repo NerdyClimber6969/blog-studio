@@ -1,0 +1,39 @@
+.recordCard {
+    max-width: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--spacing4);
+    margin-top: var(--spacing3);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.attribution {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing4)
+}
+
+.icon {
+    width: 23px;
+}
+
+.like, 
+.dislike {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing2);
+}

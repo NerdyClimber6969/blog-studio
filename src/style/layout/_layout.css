@@ -1,0 +1,70 @@
+.mt1 {
+    margin-top: var(--spacing1);
+}
+
+.mt2 {
+    margin-top: var(--spacing2);
+}
+
+.mt3 {
+    margin-top: var(--spacing3);
+}
+
+.mt4 {
+    margin-top: var(--spacing4);
+}
+
+.mt5 {
+    margin-top: var(--spacing5);
+}
+
+.mt6 {
+    margin-top: var(--spacing6);
+}
+
+.mt7 {
+    margin-top: var(--spacing7);
+}
+
+.mt8 {
+    margin-top: var(--spacing8);
+}
+
+.mb1 {
+    margin-bottom: var(--spacing1);
+}
+
+.mb2 {
+    margin-bottom: var(--spacing2);
+}
+
+.mb3 {
+    margin-bottom: var(--spacing3);
+}
+
+.mb4 {
+    margin-bottom: var(--spacing4);
+}
+
+.mb5 {
+    margin-bottom: var(--spacing5);
+}
+
+.mb6 {
+    margin-bottom: var(--spacing6);
+}
+
+.mb7 {
+    margin-bottom: var(--spacing7);
+}
+
+.mb8 {
+    margin-bottom: var(--spacing8);
+}
+
+.fixed-tr {
+    position: fixed;
+    top: 10%;
+    right: 10%;
+    z-index: 1;
+}

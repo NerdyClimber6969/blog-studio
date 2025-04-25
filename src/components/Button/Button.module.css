@@ -1,0 +1,12 @@
+.transparent {
+    padding: 0;
+    background-color: transparent;
+}
+
+.primary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing1) var(--spacing3);
+    gap: var(--spacing3);
+}

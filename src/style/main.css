@@ -1,0 +1,7 @@
+/* Base styles - foundational styling */
+@import "base/_reset.css";
+@import "base/_variables.css";
+@import "base/_typography.css";
+
+/* Layout - structural components used across the site */
+@import "layout/_layout.css";
