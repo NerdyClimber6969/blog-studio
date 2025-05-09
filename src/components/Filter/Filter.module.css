@@ -1,0 +1,47 @@
+.filter {
+    display: flex;
+    margin-bottom: var(--spacing4);
+    gap: var(--spacing3);
+
+    @media (max-width: 780px) {
+        flex-direction: column;
+    }
+
+    div:first-child {
+        flex: 1;
+        display: flex;
+        height: 60px;
+        
+        input {
+            padding-left: var(--spacing3);
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        button {
+            color: var(--color-base-content);
+            height: var(--size-field);
+            font-weight: bold;
+            width: 80px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+    
+    div:nth-child(2),
+    div:nth-child(3) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        select {
+            padding: 0 var(--spacing3);
+            border-radius: var(--radius-selector);
+            flex: 1;
+            height: var(--size-field);
+            color: var(--color-base-content);   
+            background-color: var(--color-base-100);
+            border: solid var(--color-base-content) var(--border);
+        }
+    }
+}

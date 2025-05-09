@@ -1,0 +1,24 @@
+.editPage {
+    padding-bottom: var(--spacing6);
+
+    > div:last-child { 
+        display: flex;
+        gap: var(--spacing4);
+        align-items: center;
+        justify-content: space-between;
+
+        > div {
+            label {
+                margin-right: var(--spacing3);
+            }
+
+            select {
+                padding: var(--spacing2) var(--spacing3);
+                border-radius: var(--radius-selector);
+                color: var(--color-base-content);   
+                background-color: var(--color-base-100);
+                border: solid var(--color-base-content) var(--border);
+            }
+        }
+    }
+}

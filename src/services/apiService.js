@@ -1,3 +1,13 @@
+class ApiError extends Error {
+    constructor({ message, name, statusCode, timestamp, details=null }) {
+        super(message);
+        this.name = name;
+        this.statusCode = statusCode;
+        this.timestamp = timestamp;
+        this.details = details;
+    };
+};
+
 function createAPIService() {
     const BASE_URL = 'http://localhost:3000';
 
@@ -24,9 +34,7 @@ function createAPIService() {
             const json = await response.json();
 
             if (!response.ok) {
-                const error = new Error('request fail');
-                error.errors = json.errors;
-                throw error;
+                throw new ApiError(json.error);
             };
 
             return json;
@@ -37,16 +45,18 @@ function createAPIService() {
     };
 
     return {
-        signUp: (data) => request('/authen/sign-up', 'POST', data),
-        login: (data) => request('/authen/login', 'POST', data, true),
         logout: () => request('/authen/logout', 'POST', null, true),
         verify: () =>request('/authen/verify', 'GET', null, true),
-        getProfile: () => request('/profiles', 'GET', null, true),
-        getPosts: (url) => request(url, 'GET', null, true),
-        createPost: (data) => request('/posts', 'POST', data, true),
+        getSummary: () => request('/profiles/summary', 'GET', null, true),
+        getComments: (searchParams) => 
+            request(`/profiles/comments${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
+        getPostsMetaData: (searchParams) => 
+            request(`/profiles/posts${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
+        createPost: (title) => request('/posts', 'POST', { title }, true),
         deletePost: (postId) => request(`/posts/${postId}`, 'DELETE', null, true),
         getPost: (postId) => request(`/posts/${postId}`, 'GET', null, true),
-        updatePost: (postId, data) => request(`/posts/${postId}`, 'PATCH', data, true),
+        updatePost: (postId, { title, content, summary, status }) => 
+            request(`/posts/${postId}`, 'PATCH', { title, content, summary, status }, true),
         deleteComment: (commentId) => request(`/comments/${commentId}`, 'DELETE', null, true),
     };
 };

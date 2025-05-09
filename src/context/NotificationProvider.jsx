@@ -9,16 +9,33 @@ function NotificationProvider(props) {
         setNotifications(notifications.filter((notification) => notification.id !== id));
     };
 
-    function handleSetNotifications(notifications) {
-        if (!notifications || typeof notifications !== 'object') {
+    function handleShowNotifications(messages, type) {
+        // Check valid inputs - note the logic was incorrect in the original
+        if (!messages || !type) {
             return;
         };
-
-        if (Array.isArray(notifications)) {
-            return setNotifications(notifications);
+        
+        let notificationProps;
+        
+        if (Array.isArray(messages)) {
+            notificationProps = messages.map((message) => ({
+                isClosing: false,
+                type,
+                message,
+                id: Date.now() + Math.floor(Math.random() * 100), // Ensure unique IDs
+            }));
+        } else if (typeof messages === 'string') {
+            notificationProps = [{
+                isClosing: false,
+                type,
+                message: messages,
+                id: Date.now(),
+            }];
         } else {
-            return setNotifications([notifications]);
+            return; // Invalid message format
         };
+        
+        return setNotifications(notificationProps);
     };
 
     async function handleApiCall(apiCallback, {
@@ -33,39 +50,24 @@ function NotificationProvider(props) {
             const result = await apiCallback();
 
             if (notifySuccess) {
-                handleSetNotifications({
-                    message: successMessage,
-                    id: Date.now(),
-                    isClosing: false,
-                    type: 'success'
-                });
+                handleShowNotifications(successMessage, 'success');
             };
 
-            if (onSuccess) onSuccess(result);
+            if (onSuccess && typeof onSuccess === 'function') {
+                onSuccess(result);
+            };
             
             return result;
         } catch (error) {
-            const infos = error?.response?.data?.message || error?.errors || error.message || errorMessage;
-
             if (notifyError) {
-                const baseNotificationObj = { isClosing: false, type: 'error' }
-
-                if (Array.isArray(infos)) {
-                    handleSetNotifications(infos.map((result) => ({
-                        ...baseNotificationObj,
-                        message: result.msg || result.message,
-                        id: Date.now(),
-                    })));
-                } else {
-                    handleSetNotifications({
-                        ...baseNotificationObj, 
-                        message: infos,
-                        id: Date.now(),
-                    });
+                if (notifyError) {
+                    handleShowNotifications(errorMessage || error.message, 'error');
                 };
             };
 
-            if (onError) onError(error, infos);
+            if (onError && typeof onError === 'function') {
+                onError(error);
+            };
 
             return null;
         };
@@ -76,13 +78,13 @@ function NotificationProvider(props) {
             value={{ 
                 notifications, 
                 setNotifications, 
-                removeNotification, 
-                handleApiCall 
+                removeNotification,
+                handleApiCall,
             }}
         >
             {props.children}
         </NotificationContext.Provider>
-    );
+    )
 };
 
 export function useNotifications() {

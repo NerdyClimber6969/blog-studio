@@ -1,22 +1,10 @@
-import { useEffect, useState } from 'react';
 import Flyout from './Flyout.jsx';
 import DarkModeIcon from '../../icons/DarkModeIcon.jsx';
 import LightModeIcon from '../../icons/LightModeIcon.jsx';
+import { useTheme } from '../../context/ThemeProvider.jsx';
 
 function ThemeFlyout(props) {
-    const getDefaultTheme = () => {
-        const isDark = window.matchMedia('prefers-color-scheme: dark').matches
-        const theme = isDark ? 'dark' : 'light';
-        return theme;
-    };
-
-    const [theme, setTheme] = useState(getDefaultTheme());
-
-    useEffect(() => {
-        const root = document.documentElement;
-        root.className = theme;
-        return;
-    }, [theme]);
+    const { theme, handleSetTheme } = useTheme();
 
     return (
         <Flyout>
@@ -29,13 +17,13 @@ function ThemeFlyout(props) {
             )}/>
             <Flyout.Menu>
                 <Flyout.Item 
-                    onClick={() => setTheme('light')}
+                    onClick={() => handleSetTheme('light')}
                 >
                     <LightModeIcon className='svg-icon fill'/>
                     <span>Light</span>
                 </Flyout.Item>
                 <Flyout.Item 
-                    onClick={() => setTheme('dark')}
+                    onClick={() => handleSetTheme('dark')}
                 >
                     <DarkModeIcon className='svg-icon fill'/>
                     <span>Dark Mode</span>

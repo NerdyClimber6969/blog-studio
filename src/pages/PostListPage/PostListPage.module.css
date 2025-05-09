@@ -1,0 +1,12 @@
+.postListPage {
+    padding-bottom: var(--spacing5);
+
+    > header {
+        > div:first-child {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing4);
+        }
+    }
+}

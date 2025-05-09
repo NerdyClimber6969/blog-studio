@@ -2,7 +2,7 @@ import './MenuBar.css';
 
 function MenuBar({ editor }) {  
     return editor && (
-        <div className='menu-bar'>
+        <div className='menuBar'>
             <button
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 disabled={
