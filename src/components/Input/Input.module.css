@@ -1,0 +1,69 @@
+.formInput {
+    margin-bottom: var(--spacing4);
+    
+    > div {
+        position: relative;
+    }
+
+    input {
+        &::placeholder {
+            color: transparent;
+        }
+
+        + label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: var(--spacing2);
+            background-color: var(--color-base-100);
+            padding: 0 var(--spacing2);
+            transition: transform 130ms linear;
+            border: none;
+            user-select: none;
+        }
+
+        &:focus {
+            border: solid var(--color-info) var(--border);
+
+            &:user-invalid {
+                color: var(--color-error);
+                border: solid var(--color-error) var(--border);
+
+                + label {
+                    color: var(--color-error);
+                }
+            }
+
+            + label { 
+                font: var(--font6);
+                transform: translate(2rem, -2.6rem);
+                color: var(--color-info);
+            }
+        }
+
+        &:not(:focus) {
+            &:user-invalid {
+                color: var(--color-error);
+                border: solid var(--color-error) var(--border);
+    
+                + label {
+                    color: var(--color-error);
+                }
+            }
+    
+            &:not(:placeholder-shown) + label {
+                font: var(--font6);
+                transform: translate(2rem, -2.6rem);
+            }
+        }
+    }
+
+    span {
+        color: var(--color-error);
+        display: none;
+    }
+    
+    &:has(input:user-invalid) span {
+        display: block;
+    }
+}

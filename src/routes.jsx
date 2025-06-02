@@ -1,6 +1,6 @@
 import App from './App/App.jsx';
 import DashboardPage from './pages/DashboardPage/DashboardPage.jsx';
-import PostListPage from './pages/PostPage/PostListPage.jsx';
+import PostListPage from './pages/PostListPage/PostListPage.jsx';
 import PostEditPage from './pages/PostEditPage/PostEditPage.jsx';
 import CommentPage from './pages/CommentPage/CommentPage.jsx';
 

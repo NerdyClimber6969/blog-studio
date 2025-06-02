@@ -1,4 +1,4 @@
-.filter {
+.searchToolBar {
     display: flex;
     margin-bottom: var(--spacing4);
     gap: var(--spacing3);
@@ -7,7 +7,7 @@
         flex-direction: column;
     }
 
-    div:first-child {
+    .searchSection {
         flex: 1;
         display: flex;
         height: 60px;
@@ -28,8 +28,7 @@
         }
     }
     
-    div:nth-child(2),
-    div:nth-child(3) {
+    > div:nth-child(n+2) {
         display: flex;
         justify-content: center;
         align-items: center;

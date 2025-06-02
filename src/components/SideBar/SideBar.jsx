@@ -1,43 +1,50 @@
 import { Link } from 'react-router-dom';
-import DashboardIcon from '../../icons/DashboardIcon.jsx';
-import PostIcon from '../../icons/PostIcon.jsx';
-import CommentIcon from '../../icons/CommentIcon.jsx';
+import { DashboardIcon, PostIcon, CommentIcon, CloseIcon } from '../../icons';
 import styles from './SideBar.module.css';
 
-function SideBar({ className, collasped }) {
+function SideBar({ className, collasped, onClose }) {
     return (
-        <aside className={`${styles.sideBar} ${className ? className : ''}`}>
-            <nav>
-                <ul>
-                    <li className={styles.item}>
-                        <Link to='/' className={styles.link}>
-                            <DashboardIcon className='svg-icon'/>
-                            <div className={`font-xs ${collasped ? styles.collasped : styles.show}`}>
-                                <span>Dashboard</span>
+        <>       
+            <div className={`${styles.overlay} ${collasped ? styles.collasped :styles.show}`}></div>
+            <aside className={`${styles.sideBar} ${className ? className : ''} ${collasped ? styles.collasped :styles.show}`}>
+                <nav>
+                    <ul>
+                        <li>
+                            <div onClick={onClose}>
+                                <CloseIcon/>
                             </div>
-                        </Link>
-                    </li>
+                        </li>
 
-                    <li className={styles.item}>
-                        <Link to='/posts' className={styles.link}>
-                            <PostIcon className='svg-icon'/>
-                            <div className={`font-xs ${collasped ? styles.collasped :styles.show}`}>
-                                <span>Posts</span>
-                            </div>
-                        </Link>
-                    </li>
+                        <li >
+                            <Link to='/'>
+                                <DashboardIcon/>
+                                <div className={`font-xs ${styles.itemLabel}`}>
+                                    <span>Dashboard</span>
+                                </div>
+                            </Link>
+                        </li>
 
-                    <li className={styles.item}>
-                        <Link to='/comments' className={styles.link}>    
-                            <CommentIcon className='svg-icon'/>
-                            <div className={`font-xs ${collasped ? styles.collasped: styles.show}`}>
-                                <span>Comments</span>
-                            </div>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+                        <li >
+                            <Link to='/posts' >
+                                <PostIcon/>
+                                <div className={`font-xs ${styles.itemLabel}`}>
+                                    <span>Posts</span>
+                                </div>
+                            </Link>
+                        </li>
+
+                        <li >
+                            <Link to='/comments'>    
+                                <CommentIcon/>
+                                <div className={`font-xs ${styles.itemLabel}`}>
+                                    <span>Comments</span>
+                                </div>
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </>
     );
 };
 

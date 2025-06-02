@@ -1,6 +1,5 @@
 import Flyout from './Flyout.jsx';
-import DarkModeIcon from '../../icons/DarkModeIcon.jsx';
-import LightModeIcon from '../../icons/LightModeIcon.jsx';
+import { DarkModeIcon, LightModeIcon } from '../../icons';
 import { useTheme } from '../../context/ThemeProvider.jsx';
 
 function ThemeFlyout(props) {
@@ -10,22 +9,22 @@ function ThemeFlyout(props) {
         <Flyout>
             <Flyout.Toggle iconRender={() => (
                     theme === 'dark' ? (
-                        <LightModeIcon className='svg-icon fill'/>
+                        <LightModeIcon/>
                     ) : (
-                        <DarkModeIcon className='svg-icon fill'/>
+                        <DarkModeIcon/>
                     )
             )}/>
             <Flyout.Menu>
                 <Flyout.Item 
                     onClick={() => handleSetTheme('light')}
                 >
-                    <LightModeIcon className='svg-icon fill'/>
-                    <span>Light</span>
+                    <LightModeIcon/>
+                    <span>Light Mode</span>
                 </Flyout.Item>
                 <Flyout.Item 
                     onClick={() => handleSetTheme('dark')}
                 >
-                    <DarkModeIcon className='svg-icon fill'/>
+                    <DarkModeIcon/>
                     <span>Dark Mode</span>
                 </Flyout.Item>
             </Flyout.Menu>

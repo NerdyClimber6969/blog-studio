@@ -16,18 +16,17 @@
     background-color: var(--color-base-100);
     border-radius: var(--radius-box);
     border: none;
+
+    > div:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing4);
+    }
+
+    > div:last-child  {
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing3)
+    }
 }
-
-.header {
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.actions {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing3)
-}
-

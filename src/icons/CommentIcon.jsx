@@ -1,13 +1,8 @@
-import '../style/components/_svgIcon.css'
+import IconBase from './IconBase.jsx';
 
-function CommentIcon({ className='' }) {
+function CommentIcon(props) {
     return (
-        <svg 
-            className={className}
-            viewBox='0 0 24 24' 
-            fill='none' 
-            xmlns='http://www.w3.org/2000/svg'
-        >
+        <IconBase {...props} variant='strokeOnly'>
             <g 
                 id='SVGRepo_bgCarrier' 
                 strokeWidth='0'
@@ -25,7 +20,7 @@ function CommentIcon({ className='' }) {
                     strokeLinejoin='round'
                 />
             </g>
-        </svg>
+        </IconBase>
     );
 };
 

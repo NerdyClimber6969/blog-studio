@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuthen } from '../../context/AuthenProvider.jsx';
 import ThemeFlyout from '../Flyout/ThemeFlyout.jsx';
-import SideBarIcon from '../../icons/SideBarIcon.jsx';
+import { SideBarIcon } from '../../icons/';
 import styles from './Header.module.css';
 
 function Header({ className, toggleSideBar }) {
@@ -11,7 +11,7 @@ function Header({ className, toggleSideBar }) {
         <header className={`${styles.header} ${className ? className : ''}`}>
             <div className={styles.leftContainer}>
                 <button className={styles.toggle + ' svg-button'} onClick={toggleSideBar}>
-                    <SideBarIcon className='svg-icon'/>
+                    <SideBarIcon/>
                 </button>
                 <h1 className='font-lg'>DevBlog Studio</h1>
             </div>         

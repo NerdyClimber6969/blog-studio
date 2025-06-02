@@ -1,10 +1,10 @@
-.container {
+.cardGroup {
     display: flex;
     justify-content: stretch;
     flex-wrap: wrap;
     gap: var(--spacing3);
-}
 
-.containerChild {
-    flex: 1
+    > div {
+        flex: 1
+    }
 }

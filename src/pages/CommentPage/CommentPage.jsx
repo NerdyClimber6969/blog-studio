@@ -1,11 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import useComments from '../../hook/useComments.jsx';
 
 import RecordCard from '../../components/RecordCard/RecordCard.jsx';
-import DeleteIcon from '../../icons/DeleteIcon.jsx';
-import Filter from '../../components/Filter/Filter.jsx';
+import { DeleteIcon } from '../../icons';
+import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
 import DeleteDialog from '../../components/DeleteDialog/DeleteDialog.jsx';
@@ -22,20 +22,26 @@ function CommentPage(props) {
         'deleteDialog': DeleteDialog
     });
 
-    const handleFilterChange = useCallback((filterUpdates) => {
-        setSearchParams((prev) => {
-            const newfilter = updateSearchParams(prev, {
-                ...filterUpdates,
-            })
+    const sortOptions = useMemo(() => ([
+        { value: 'createdAt:asc', label: 'Date of Creation (Asc)' },
+        { value: 'createdAt:desc', label: 'Date of Creation (Desc)' },
+        { value: 'content:asc', label: 'Content (Asc)' },
+        { value: 'content:desc', label: 'Content (Desc)'}
+    ]), [])
 
-            return newfilter
+    const handleSearchParamsChange = useCallback((paramUpdates) => {
+        setSearchParams((prev) => {
+            const newSearchParam = updateSearchParams(prev, {
+                ...paramUpdates,
+            });
+
+            return newSearchParam;
         })
     }, [searchParams]);
     
     const handleDelete = useCallback(async (commentToDelete) => {
         closeDialog();
         await deleteComment(commentToDelete);
-        return
     }, []);
 
     return (
@@ -48,13 +54,13 @@ function CommentPage(props) {
                     <>  
                         <header className='mb4'>
                             <h2 className='font-md mb4'>Comments</h2>      
-                            <Filter 
-                                filters={{
-                                    search: searchParams.get('search') || '',
-                                    sort: `${searchParams.get('orderBy')}:${searchParams.get('orderDir')}`,
+                            <SearchToolBar 
+                                initialParams={{
+                                    orderBy: searchParams.get('orderBy'),
+                                    orderDir: searchParams.get('orderDir')
                                 }}
-                                onFilterChange={handleFilterChange}
-                                useStatus={false}
+                                sortOptions={sortOptions}                                
+                                onParamChange={handleSearchParamsChange}
                             /> 
                         </header>
                         
@@ -79,7 +85,7 @@ function CommentPage(props) {
                                                     className={btnStyles.transparent}
                                                     onClick={() => openDialog('deleteDialog', { onConfirm: () => handleDelete(comment)})}
                                                 >
-                                                    <DeleteIcon className='svg-icon'/>
+                                                    <DeleteIcon/>
                                                 </button>
                                             </div>  
                                         )}

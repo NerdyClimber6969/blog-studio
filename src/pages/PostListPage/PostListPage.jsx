@@ -1,12 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Link, useSearchParams  } from 'react-router-dom';
 
 import usePostsMetaData from '../../hook/usePostsMetaData.jsx';
 
 import RecordCard from '../../components/RecordCard/RecordCard.jsx';
-import Filter from '../../components/Filter/Filter.jsx';
-import EditIcon from '../../icons/EditIcon.jsx';
-import DeleteIcon from '../../icons/DeleteIcon.jsx'
+import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
+import { EditIcon, DeleteIcon } from '../../icons';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
 import NewPostDialog from '../../components/NewPostDialog/NewPostDialog.jsx';
@@ -25,26 +24,42 @@ function PostListPage(props) {
         'deleteDialog': DeleteDialog
     });
 
-    const handleFilterChange = useCallback((filterUpdates) => {
-        setSearchParams((prev) => {
-            const newfilter = updateSearchParams(prev, {
-                ...filterUpdates,
-            })
+    const sortOptions = useMemo(() => ([
+        { value: 'createdAt:asc', label: 'Date of Creation (Asc)' },
+        { value: 'createdAt:desc', label: 'Date of Creation (Desc)' },
+        { value: 'title:asc', label: 'Title (Asc)' },
+        { value: 'title:desc', label: 'Title (Desc)'}
+    ]), [])
 
-            return newfilter
+    const filterGroups = useMemo(() => ([
+        {
+            key: 'status',
+            label: 'Select Status',
+            options: [
+                { value: 'published', label: 'Published' },
+                { value: 'drafted', label: 'Drafted' },
+            ]
+        }
+    ]), []);
+
+    const handleSearchParamsChange = useCallback((paramUpdates) => {
+        setSearchParams((prev) => {
+            const newSearchParam = updateSearchParams(prev, {
+                ...paramUpdates,
+            });
+
+            return newSearchParam;
         })
     }, [searchParams]);
 
     const handleSubmit = useCallback(async (title) => {
         closeDialog();
         await addPost(title)
-        return;
     }, []);
 
     const handleDelete = useCallback(async (postToDelete) => {
         closeDialog();
         await deletePost(postToDelete);
-        return
     }, []);
 
     return (
@@ -65,13 +80,14 @@ function PostListPage(props) {
                                         <span className='font-lg'>+</span> Create New Post
                                 </button> 
                             </div>
-                            <Filter 
-                                filters={{
-                                    search: searchParams.get('search') || '',
-                                    sort: `${searchParams.get('orderBy')}:${searchParams.get('orderDir')}`,
-                                    status: searchParams.get('status') || ''
+                            <SearchToolBar
+                                initialParams={{
+                                    orderBy: searchParams.get('orderBy'),
+                                    orderDir: searchParams.get('orderDir')
                                 }}
-                                onFilterChange={handleFilterChange}
+                                sortOptions={sortOptions}
+                                filterGroups={filterGroups}
+                                onParamChange={handleSearchParamsChange}
                             />
                         </header>
 
@@ -92,18 +108,18 @@ function PostListPage(props) {
                                             like={post.like}
                                             dislike={post.dislike}
                                             renderAction={() => (
-                                                <div className='action-container'>
+                                                <div className='action-container' style={{flexShrink : 0}}>
                                                     <button 
                                                         className={btnStyles.transparent}
-                                                        style={{marginRight: 'var(--spacing4)'}}
+                                                        style={{marginRight: 'var(--spacing3)' }}
                                                     >   
-                                                        <Link to={`/posts/${post.id}`}><EditIcon className='svg-icon'/></Link>
+                                                        <Link to={`/posts/${post.id}`}><EditIcon/></Link>
                                                     </button>
                                                     <button 
                                                         className={btnStyles.transparent}
                                                         onClick={() => openDialog('deleteDialog', { onConfirm: () => handleDelete(post) })}
                                                     >
-                                                        <DeleteIcon className='svg-icon'/>
+                                                        <DeleteIcon/>
                                                     </button>
                                                 </div>
                                             )}

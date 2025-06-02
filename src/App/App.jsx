@@ -16,13 +16,15 @@ function AppContent(props) {
       return (
         <Dialog
           isOpen={true}
-          title='notification'
+          title='Notification'
           showCloseButton={false}
           confirmBtn='Go back to DevBlog'
           onConfirm={() => location.href='http://localhost:3002/login'}
-        >   
-          <p>You are not logged in.</p>
-          <p>Please login before continue.</p>
+        >  
+          <div className='font-sm' style={{marginBottom: 'var(--spacing4)'}}>
+            <p>You are not logged in.</p>
+            <p>Please login before continue.</p>
+          </div> 
         </Dialog>
       )
     };
@@ -38,6 +40,7 @@ function AppContent(props) {
             <SideBar 
               className={styles.sideBar}
               collasped={collasped} 
+              onClose={() => setCollasped(true)}
             />
             <div className={styles.main}>
               <Outlet/>

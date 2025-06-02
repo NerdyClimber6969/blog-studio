@@ -4,36 +4,37 @@
     grid-template-rows: auto 1fr;
     gap: var(--spacing4);
     margin-top: var(--spacing3);
-}
 
-.header {
-    display: flex;
-    justify-content: space-between;
-}
+    header {
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+        
+        > div {
+            overflow: hidden;
+        }
 
-.title {
-    font-weight: bold;
-}
+        h3, p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-.text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+        h3 {
+            font-weight: bold;
+        }
+    }
 
-.attribution {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing4)
-}
-
-.icon {
-    width: 23px;
-}
-
-.like, 
-.dislike {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing2);
+    footer {
+        ul {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing4);
+        
+            li:nth-child(n+2) {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing2);
+            }
+        }
+    }
 }

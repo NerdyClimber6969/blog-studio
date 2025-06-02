@@ -38,8 +38,8 @@ function Dialog ({
                 className={dialogStyles.dialog}
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className={dialogStyles.header}>
-                    <h2 className='font-sm'>{title}</h2>
+                <div>
+                    <h2 className='font-md'>{title}</h2>
                     {showCloseButton && (
                         <button 
                             className={btnStyles.transparent} 
@@ -54,7 +54,7 @@ function Dialog ({
                 {children}
 
                 {(confirmBtn || cancelBtn) && (
-                    <div className={dialogStyles.actions}>
+                    <div>
                         {cancelBtn && (
                             <button 
                                 className='btn btn-secondary' 

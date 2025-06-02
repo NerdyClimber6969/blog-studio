@@ -1,13 +1,8 @@
-import '../style/components/_svgIcon.css'
+import IconBase from './IconBase.jsx';
 
-function LightModeIcon({ className }) {
+function LightModeIcon(props) {
     return (
-        <svg 
-            className={className}
-            viewBox='0 0 25 25' 
-            id='light-mode-icon'
-            xmlns='http://www.w3.org/2000/svg'
-        >
+        <IconBase {...props} variant='strokeAndFill' viewBox = '0 0 25 25'>
             <circle 
                 cx='12' 
                 cy='12' 
@@ -45,7 +40,7 @@ function LightModeIcon({ className }) {
                 d='M19.7778 19.7773L17.5558 17.5551' 
                 strokeWidth='1.2'
             />
-        </svg>
+        </IconBase>
     );
 };
 

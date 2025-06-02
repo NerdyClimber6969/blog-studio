@@ -1,13 +1,8 @@
-import '../style/components/_svgIcon.css'
+import IconBase from './IconBase.jsx';
 
-function Dashboard({ className='' }) {
+function Dashboard(props) {
     return (
-        <svg 
-            className={className}
-            viewBox='0 0 24.00 24.00' 
-            xmlns='http://www.w3.org/2000/svg' 
-            xmlns:xlink='http://www.w3.org/1999/xlink' 
-        >
+        <IconBase {...props} variant='strokeOnly'>
             <g 
                 id='SVGRepo_bgCarrier' 
                 strokeWidth='0'
@@ -22,7 +17,7 @@ function Dashboard({ className='' }) {
                 id='Dashboard' 
                 strokeWidth='1' 
                 fill='none' 
-                fill-rule='evenodd'
+                fillRule='evenodd'
             > 
                 <rect 
                     id='shape-1' 
@@ -53,7 +48,7 @@ function Dashboard({ className='' }) {
                     strokeLinecap='round'
                 />
             </g> 
-        </svg>
+        </IconBase>
     );
 };
 

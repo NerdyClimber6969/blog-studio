@@ -1,42 +1,33 @@
-import './Input.css';
+import styles from './Input.module.css';
 
-function Input({
-    label, 
-    id, 
-    name, 
-    type, 
-    placeholder, 
-    required=true, 
-    pattern, 
-    error, 
-    value, 
-    onChange,
-}) {
+function Input(props) {
+    const {
+        id,
+        name,
+        label, 
+        errorMessage, 
+        onChange,
+        ...inputProps
+    } = props;
+
     return (
-        <div className='container input-container'> 
-            <div className='font-sm'>
-                <input 
+        <div className={styles.formInput}> 
+            <div>
+                <input
+                    {...inputProps} 
+                    id={id}
+                    name={name}
                     className='font-sm' 
-                    type={type} 
-                    id={id} 
-                    name={name} 
-                    pattern={pattern || null} 
-                    placeholder={placeholder} 
-                    required={required}
-                    value={value} 
                     onChange={onChange}
                 />
                 <label 
-                    className='font-sm' 
                     htmlFor={id}
+                    className='font-sm' 
                 >
                     {label}
                 </label>
-            </div>
-
-            {error && (
-                <div><p>{error}</p></div>   
-            )}               
+            </div>            
+            <span className='font-xxs'>{errorMessage}</span>                            
         </div>   
     );
 };

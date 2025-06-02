@@ -1,27 +1,23 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Input from '../Input/Input.jsx';
 import Dialog from '../Dialog/Dialog.jsx';
 
 function NewPostDialog({ isOpen, onSubmit, onClose }) {
     const [title, setTitle] = useState('');
-    const [errors, setErrors] = useState({});
+    const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true);
 
-    function validateInput() {
-        const newErrors = {};
-
-        if (!title.trim()) {
-            newErrors.title = 'Title is required';
-        };
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+    const validateInput = useCallback((newTitle) => newTitle !== '', []);
+    
+    function handleInputChange(e) {
+        const newTitle = e.target.value;
+        setTitle(newTitle);
+        setSubmitBtnDisabled(!validateInput(newTitle));
     };
 
     function handleSubmit(e) {
         if (!validateInput()) return;
         e.preventDefault();
         setTitle('');
-        setErrors({});
         onSubmit(title);
         return;
     };
@@ -29,7 +25,6 @@ function NewPostDialog({ isOpen, onSubmit, onClose }) {
     function handleClose(e) {
         e.preventDefault();
         setTitle('');
-        setErrors({});
         onClose();
         return;
     };
@@ -39,6 +34,7 @@ function NewPostDialog({ isOpen, onSubmit, onClose }) {
             isOpen={isOpen}
             title='Create New Post'
             confirmBtn='Add Post'
+            confirmBtnDisabled={submitBtnDisabled}
             cancelBtn='Cancel'
             onConfirm={(e) => handleSubmit(e)}
             onClose={(e) => handleClose(e)}
@@ -50,9 +46,10 @@ function NewPostDialog({ isOpen, onSubmit, onClose }) {
                     name='title'
                     type='text'
                     placeholder='Title'
-                    error={errors.title}
+                    errorMessage='Title is required'
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    onChange={(e) => handleInputChange(e)}
                 />
             </form>
         </Dialog>

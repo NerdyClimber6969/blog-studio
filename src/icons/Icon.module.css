@@ -1,0 +1,18 @@
+.icon {
+    height: 100%
+}
+
+.strokeOnly {
+    stroke: var(--color-base-content);
+    fill: none;
+}
+
+.fillOnly {
+    fill: var(--color-base-content);
+    stroke: none;
+}
+
+.strokeAndFill {
+    stroke: var(--color-base-content);
+    fill: var(--color-base-content);
+}

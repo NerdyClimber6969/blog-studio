@@ -5,6 +5,7 @@
 }
 
 .menu {
+    min-width: 215px;
     background-color: var(--color-base-100);
     padding: var(--spacing4);
     border-radius: var(--radius-box);
