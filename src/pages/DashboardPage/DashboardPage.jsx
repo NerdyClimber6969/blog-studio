@@ -1,4 +1,5 @@
 import StatCard from '../../components/StatCard/StatCard.jsx';
+import { UnexpectedError, NotFoundError } from '../../components/Error';
 import useSummary from '../../hook/useSummary.jsx';
 import styles from './DashboardPage.module.css';
 
@@ -8,8 +9,8 @@ function DashboardPage(props) {
     return (
         <main className='DashboardPage'>
             {loading && <p className='font-sm'>Loading...</p>}
-            {!loading && error && <p className='font-sm'>Error occured when fetching ...</p>}
-            {!loading && summary && (
+            {!loading && error && !summary && <UnexpectedError/>}
+            {!loading && !error && summary && (
                 <>
                     <h2 className='font-md mb4'>Dashboard</h2>
                     <div className={styles.cardGroup}>

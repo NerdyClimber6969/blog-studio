@@ -1,0 +1,29 @@
+.skeleton {
+    background:  var(--color-skeleton);
+    border-radius: var(--radius-box);
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: '';
+        left: 0;
+        background: var(--color-skeleton-loading);
+        background-repeat: no-repeat;
+        background-size: 200% 100%;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        border-radius: var(--radius-box);
+        animation: skeletonSlide 1s infinite ease-in-out;
+    }
+}
+
+@keyframes skeletonSlide {
+    from {
+        background-position: 120% 0%;
+    }
+
+    to {
+      background-position: -120% 0%;
+    }
+}

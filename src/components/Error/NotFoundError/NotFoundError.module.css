@@ -1,0 +1,6 @@
+.error {
+    padding: var(--spacing4);
+    border-radius: var(--radius-box);
+    background-color: var(--color-base-100);
+    text-align: center;
+}
