@@ -7,10 +7,10 @@ function Notification({ id, message, onRemove, isClosing, type='success'}) {
 
     return (
         <li 
-            className={`notification ${closing} ${notificationType} ${notifiactionStyles.item}`}
+            className={`notification ${closing} ${notificationType} ${notifiactionStyles.notifiaction}`}
             id={id}
         >
-            <div className={notifiactionStyles.container}>
+            <div>
                 <button 
                     className={`font-lg ${btnStyles.transparent}`}
                     onClick={onRemove}

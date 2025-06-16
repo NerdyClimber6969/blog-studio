@@ -5,7 +5,7 @@ import usePostsMetaData from '../../hook/usePostsMetaData.jsx';
 
 import { RecordCard, RecordCardSkeleton } from '../../components/RecordCard/';
 import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
-import { UnexpectedError, NotFoundError } from '../../components/Error';
+import { UnexpectedError, ErrorMessage } from '../../components/Error';
 import { EditIcon, DeleteIcon } from '../../icons';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
@@ -133,7 +133,10 @@ function PostListPage(props) {
                                 </div> 
                             </>                     
                         ) : (
-                            <NotFoundError/>
+                            <ErrorMessage 
+                                message="You don't have any post yet"
+                                variant='info'
+                            />
                         )}                        
                     </>
                 )}               

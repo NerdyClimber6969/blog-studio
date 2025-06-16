@@ -6,7 +6,7 @@ import useComments from '../../hook/useComments.jsx';
 import { RecordCard, RecordCardSkeleton } from '../../components/RecordCard/';
 import { DeleteIcon } from '../../icons';
 import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
-import { UnexpectedError, NotFoundError } from '../../components/Error';
+import { UnexpectedError, ErrorMessage } from '../../components/Error';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
 import DeleteDialog from '../../components/DeleteDialog/DeleteDialog.jsx';
@@ -98,7 +98,10 @@ function CommentPage(props) {
                                 ))}
                             </div>                                
                         ) : (
-                            <NotFoundError/>
+                            <ErrorMessage 
+                                message="You don't have any comment yet"
+                                variant='info'
+                            />
                         )}                         
                     </>                  
                 )}

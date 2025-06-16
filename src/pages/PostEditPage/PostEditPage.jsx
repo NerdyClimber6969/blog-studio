@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import Editor from '../../components/Editor/Editor.jsx';
+import { UnexpectedError, PageNotFoundError } from '../../components/Error';
 import usePost from '../../hook/usePost.jsx';
 import styles from './PostEditPage.module.css';
 
@@ -22,22 +23,12 @@ function PostEditPage() {
     };
 
     if (!initialLoading && !updateLoading && error) {
-        let message;
-
         switch (error.name) {
             case 'ResourceNotFoundError':
-                message = 'Post not found ...';
-                break;        
+                return (<PageNotFoundError/>);       
             default:
-                message = 'Unexpected error occurred ...';
-                break;
+                return (<UnexpectedError/>)
         };
-
-        return (
-            <main className={styles.editPage}>
-                <p className='font-sm'>{message}</p>
-            </main>
-        );
     };
 
     return (

@@ -19,3 +19,9 @@
     grid-area: main;
     padding: var(--spacing5);
 }
+
+.loadingLayout {
+    height: 100%;
+    display: grid;
+    place-items: center;
+}

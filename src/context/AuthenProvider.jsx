@@ -11,23 +11,19 @@ function AuthenProvider({ children }) {
     const { handleApiCall } = useNotifications();
 
     const verifyToken = async () => {
-        try {
-            await handleApiCall(() => API.verify(), {
-                notifySuccess: false,
-                notifyError: false,
-                onSuccess: (response) => {
-                    setUser(response.username);
-                    setIsAuthenticated(true);
-                },
-                onError: (error) => {
-                    logout();
-                }
-            });
-        } finally {
-            setLoading(false);
-        };
-
-        return;
+        await handleApiCall(() => API.verify(), {
+            notifySuccess: false,
+            notifyError: false,
+            onSuccess: (response) => {
+                setUser(response.username);
+                setIsAuthenticated(true);
+            },
+            onError: (error) => {
+                logout();
+            }
+        });
+  
+        setLoading(false);
     };
 
     async function logout() {
@@ -71,12 +67,9 @@ function AuthenProvider({ children }) {
             logout,
             isAuthenticated,
             setIsAuthenticated,
+            loading
         }}> 
-            {loading ? (
-                <div>Loading</div>
-            ) : (
-                children
-            )}
+            {children}
         </AuthenContext.Provider>
     );  
 };

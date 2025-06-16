@@ -1,0 +1,183 @@
+.stairLoader {
+    position: relative;
+
+    --base-scale: 1;
+    --scale-increment: 0.2;
+    --gap-size: 6;
+    --base-bar-height: 40;
+    --base-bar-width: 10;
+
+    .stairWrapper {
+        display: flex;  
+        align-items: flex-end;
+        gap: calc(var(--gap-size) * 1px);
+
+        > div {
+            background-color: var(--color-base-content);
+            height: calc(var(--base-bar-height) * 1px);
+            width: calc(var(--base-bar-width) * 1px);;
+            transform: scaleY(calc(var(--base-scale) + var(--scale-increment) * (var(--index, 0))));
+            transform-origin: bottom;
+
+            &:nth-child(1) { 
+                animation: stairUp1 4s infinite;
+                --index: 0; 
+            }
+
+            &:nth-child(2) { 
+                animation: stairUp2 4s infinite;
+                --index: 1; 
+            }
+
+            &:nth-child(3) { 
+                --index: 2; 
+            }
+
+            &:nth-child(4) { 
+                animation: stairUp4 4s infinite;
+                --index: 3; 
+            }
+
+            &:nth-child(5) { 
+                animation: stairUp5 4s infinite;
+                --index: 4; 
+            }
+        }
+    }
+
+    .ball {
+        --base-bounce-height: -200%;
+        --bar-height-increment: calc(var(--base-bar-height) * var(--scale-increment));
+        --dy: calc(var(--bar-height-increment) / var(--base-bar-width) * -100%);
+        --dx: calc((var(--gap-size) / 2 + var(--base-bar-width) / 2) / var(--base-bar-width) * 100%);
+
+        z-index: 1;
+        position: absolute;
+        aspect-ratio: 1;
+        width: calc(var(--base-bar-width) * 1px);
+        background-color: var(--color-primary);
+        border-radius: 50%;
+        left: 0;
+        top: -10px;
+        animation: ballUp 4s infinite;
+        transform-origin: center bottom;
+    }
+}
+
+
+@keyframes ballUp {
+    0% { transform: translate(0%, 0%);}
+
+    /* forward animation */
+    7% { transform: translate(calc(1 * var(--dx)), var(--base-bounce-height)); }
+    10% { transform: translate(calc(2 * var(--dx)), calc(var(--dy) * 1)); } 
+
+    17% { transform: translate(calc(3 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 1)); }
+    20% { transform: translate(calc(4 * var(--dx)), calc(var(--dy) * 2)); }
+    
+    27% { transform: translate(calc(5 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 2)); }
+    30% { transform: translate(calc(6 * var(--dx)), calc(var(--dy) * 3)); }
+
+    37% { transform: translate(calc(7 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 3)); }
+    40% { transform: translate(calc(8 * var(--dx)), calc(var(--dy) * 4)); }
+
+    /* drop to bottom */
+    50% { transform: translate(calc(8 * var(--dx)), 0%); }
+
+    /* backward animation */
+    57% { transform: translate(calc(7 * var(--dx)), var(--base-bounce-height)); }
+    60% { transform: translate(calc(6 * var(--dx)), calc(var(--dy) * 1)); } 
+
+    67% { transform: translate(calc(5 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 1)); }
+
+    70% { transform: translate(calc(4 * var(--dx)), calc(var(--dy) * 2)); }
+    
+    77% { transform: translate(calc(3 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 2)); }
+    80% { transform: translate(calc(2 * var(--dx)), calc(var(--dy) * 3));}
+
+    87% { transform: translate(calc(1 * var(--dx)), calc(var(--base-bounce-height) + var(--dy) * 3)); }
+    90% { transform: translate(calc(0 * var(--dx)), calc(var(--dy) * 4)); }
+
+    100% { transform: translate(0%, 0%); }
+}
+
+@keyframes stairUp1 { 
+    0% {
+        transform: scale(1, 1);
+    }
+
+    40%{
+        transform: scale(1, 1);
+    } 
+
+    50% {
+        transform: scale(1, 1.8);
+    }
+
+    90% {
+        transform: scale(1, 1.8);
+    }
+
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+
+@keyframes stairUp2 { 
+    0% {
+        transform: scale(1, 1.2);
+    }
+
+    40% {
+        transform: scale(1, 1.2);
+    }
+
+    50% {
+        transform: scale(1, 1.6);
+    }
+
+    90% {
+        transform: scale(1, 1.6);
+    }
+
+    100% {
+        transform: scale(1, 1.2);
+    }
+}
+
+@keyframes stairUp4 { 
+    0% {
+        transform: scale(1, 1.6);
+    }
+    40% {
+        transform: scale(1, 1.6);
+    }
+    50% {
+        transform: scale(1, 1.2);
+    }
+    90% {
+        transform: scale(1, 1.2);
+    }
+    100% {
+        transform: scale(1, 1.6);
+    }
+}
+
+@keyframes stairUp5 { 
+    0% {
+        transform: scale(1, 1.8);
+    }
+    40% {
+        transform: scale(1, 1.8);
+    }
+    50% {
+        transform: scale(1, 1);
+    }
+    90% {
+        transform: scale(1, 1);
+    }
+    100% {
+        transform: scale(1, 1.8);
+    }
+}   

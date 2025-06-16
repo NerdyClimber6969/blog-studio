@@ -9,7 +9,7 @@ class ApiError extends Error {
 };
 
 function createAPIService() {
-    const BASE_URL = 'http://localhost:3000';
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
     async function request(endpoint, method='GET', data=null, includeCredentials=false) {
         const headers = {

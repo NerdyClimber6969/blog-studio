@@ -1,0 +1,10 @@
+.errorContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing4);
+    padding: var(--spacing4);
+    border-radius: var(--radius-box);
+    max-width: 100%;
+    background-color: var(--color-base-100);
+}

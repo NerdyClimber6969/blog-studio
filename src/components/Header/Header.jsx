@@ -13,7 +13,7 @@ function Header({ className, toggleSideBar }) {
                 <button className={styles.toggle + ' svg-button'} onClick={toggleSideBar}>
                     <SideBarIcon/>
                 </button>
-                <h1 className='font-lg'>DevBlog Studio</h1>
+                <h1 className='font-lg'>MyBlog Studio</h1>
             </div>         
 
             <div>

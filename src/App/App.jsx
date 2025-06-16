@@ -1,35 +1,39 @@
 import { useState } from 'react';
-import AppProvider from '../context/AppProvider';
-import NotificationDisplayer from '../NotificationDisplayer.jsx';
 import { useAuthen } from '../context/AuthenProvider.jsx';
+
+import AppProvider from '../context/AppProvider';
+
+import NotificationDisplayer from '../NotificationDisplayer.jsx';
 import Dialog from '../components/Dialog/Dialog.jsx';
 import Header from '../components/Header/Header.jsx';
 import SideBar from '../components/SideBar/SideBar.jsx';
+import StairLoader from '../components/StairLoader/StairLoader.jsx';
 import { Outlet } from 'react-router-dom';
+
 import styles from './App.module.css';
 
 function AppContent(props) {
     const [collasped, setCollasped] = useState(true);
-    const { isAuthenticated } = useAuthen()
+    const { isAuthenticated, loading } = useAuthen()
 
-    if (!isAuthenticated) {
+    if (loading) {
       return (
-        <Dialog
-          isOpen={true}
-          title='Notification'
-          showCloseButton={false}
-          confirmBtn='Go back to DevBlog'
-          onConfirm={() => location.href='http://localhost:3002/login'}
-        >  
-          <div className='font-sm' style={{marginBottom: 'var(--spacing4)'}}>
-            <p>You are not logged in.</p>
-            <p>Please login before continue.</p>
-          </div> 
-        </Dialog>
-      )
+        <div className={styles.loadingLayout}>
+            <div>
+                <StairLoader/>
+                <p 
+                    className='font-sm' 
+                    style={{ marginTop: 'var(--spacing4)' }}
+                >
+                    Loading...
+                </p>
+            </div>
+        </div>
+      );
     };
-
+    
     return (
+      isAuthenticated ? (
         <>
           <NotificationDisplayer />
           <div className={styles.layout}>
@@ -47,6 +51,20 @@ function AppContent(props) {
             </div>        
           </div>
         </> 
+      ) : (
+        <Dialog
+          isOpen={true}
+          title='Notification'
+          showCloseButton={false}
+          confirmBtn='Go back to MyBlog'
+          onConfirm={() => location.href=import.meta.env.VITE_BLOG_APP_URL}
+        >  
+          <div className='font-sm' style={{marginBottom: 'var(--spacing4)'}}>
+            <p>You are not logged in.</p>
+            <p>Please login before continue.</p>
+          </div> 
+        </Dialog>
+      )
     );
 };
 

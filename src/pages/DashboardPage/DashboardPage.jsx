@@ -1,5 +1,5 @@
 import StatCard from '../../components/StatCard/StatCard.jsx';
-import { UnexpectedError, NotFoundError } from '../../components/Error';
+import { UnexpectedError } from '../../components/Error';
 import useSummary from '../../hook/useSummary.jsx';
 import styles from './DashboardPage.module.css';
 
