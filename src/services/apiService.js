@@ -47,17 +47,14 @@ function createAPIService() {
     return {
         logout: () => request('/authen/logout', 'POST', null, true),
         verify: () =>request('/authen/verify', 'GET', null, true),
-        getSummary: () => request('/profiles/summary', 'GET', null, true),
-        getComments: (searchParams) => 
-            request(`/profiles/comments${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
-        getPostsMetaData: (searchParams) => 
-            request(`/profiles/posts${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
-        createPost: (title) => request('/posts', 'POST', { title }, true),
-        deletePost: (postId) => request(`/posts/${postId}`, 'DELETE', null, true),
-        getPost: (postId) => request(`/posts/${postId}`, 'GET', null, true),
-        updatePost: (postId, { title, content, summary, status }) => 
-            request(`/posts/${postId}`, 'PATCH', { title, content, summary, status }, true),
-        deleteComment: (commentId) => request(`/comments/${commentId}`, 'DELETE', null, true),
+        getSummary: () => request('/users/summary', 'GET', null, true),
+        deleteComment: (commentId) => request(`/users/comments/${commentId}`, 'DELETE', null, true),
+        getComments: (searchParams) => request(`/users/comments${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
+        createPost: (title) => request('/users/posts', 'POST', { title }, true),
+        updatePost: (postId, { title, content, summary, status }) => request(`/users/posts/${postId}`, 'PATCH', { title, content, summary, status }, true),
+        getPostsMetaData: (searchParams) => request(`/users/posts${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
+        getPost: (postId) => request(`/users/posts/${postId}`, 'GET', null, true),
+        deletePost: (postId) => request(`/users/posts/${postId}`, 'DELETE', null, true)
     };
 };
 

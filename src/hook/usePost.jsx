@@ -11,17 +11,20 @@ function usePost(postId) {
 
     useEffect(() => {
         const fetchPost = async () => {
+            setPost(null);
+            setError(null);
+            setInitialLoading(true);
+
             await handleApiCall(() => API.getPost(postId), {
                 notifySuccess: false,
                 notifyError: true,
                 onSuccess: (response) => {
                     setPost(response.post);
-                    setInitialLoading(false);
                 },
                 onError: (error) => setError(error)
             });
 
-            return;
+            setInitialLoading(false);
         };
 
         fetchPost();
@@ -40,8 +43,6 @@ function usePost(postId) {
         });
 
         setUpdateLoading(false);
-
-        return;
     };
 
     return { 
