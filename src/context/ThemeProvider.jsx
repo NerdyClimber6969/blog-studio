@@ -3,28 +3,19 @@ import { useState, useEffect, createContext, useContext } from 'react';
 const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
-    const [theme, setTheme] = useState('light'); 
+    const [theme, setTheme] = useState(() => {
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme) {
+            return storedTheme
+        } else {
+            return 'light'
+        };
+    }); 
 
     function handleSetTheme(theme) {
-        try {
-            // Correct method for setting localStorage
-            localStorage.setItem('theme', theme); 
-            setTheme(theme);
-        } catch (error) {
-            console.error('Failed to set theme in localStorage:', error);
-        };
+        localStorage.setItem('theme', theme); 
+        setTheme(theme);   
     };
-
-    useEffect(() => {
-        try {
-            const storedTheme = localStorage.getItem('theme');
-            if (storedTheme) {
-                setTheme(storedTheme);
-            };
-        } catch (error) {
-            console.error('Failed to retrieve theme from localStorage:', error);
-        };
-    }, []);
 
     useEffect(() => {
         const root = document.documentElement;

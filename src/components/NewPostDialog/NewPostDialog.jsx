@@ -1,10 +1,13 @@
 import { useState, useCallback } from 'react';
 import Input from '../Input/Input.jsx';
 import Dialog from '../Dialog/Dialog.jsx';
+import SpinningLoader  from '../SpinningLoader/SpinningLoader.jsx';
+import styles from './NewPostDialog.module.css';
 
 function NewPostDialog({ isOpen, onSubmit, onClose }) {
     const [title, setTitle] = useState('');
     const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const validateInput = useCallback((newTitle) => newTitle !== '', []);
     
@@ -14,11 +17,13 @@ function NewPostDialog({ isOpen, onSubmit, onClose }) {
         setSubmitBtnDisabled(!validateInput(newTitle));
     };
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         if (!validateInput()) return;
         e.preventDefault();
+        setLoading(true);
         setTitle('');
-        onSubmit(title);
+        await onSubmit(title);
+        setLoading(false);
         return;
     };
 
@@ -31,27 +36,36 @@ function NewPostDialog({ isOpen, onSubmit, onClose }) {
 
     return (
         <Dialog
+            className={styles.newPostDialog}
             isOpen={isOpen}
             title='Create New Post'
             confirmBtn='Add Post'
-            confirmBtnDisabled={submitBtnDisabled}
+            confirmBtnDisabled={submitBtnDisabled || loading}
             cancelBtn='Cancel'
+            cancelBtnDisabled={loading}
+            showCloseButton={!loading}
             onConfirm={(e) => handleSubmit(e)}
             onClose={(e) => handleClose(e)}
-        >
-            <form>
-                <Input
-                    label='Title'
-                    id='title'
-                    name='title'
-                    type='text'
-                    placeholder='Title'
-                    errorMessage='Title is required'
-                    value={title}
-                    required
-                    onChange={(e) => handleInputChange(e)}
-                />
-            </form>
+        >   
+            {loading ? (
+                <div className={styles.loaderContainer}>
+                    <SpinningLoader size='medium'/>
+                </div>
+            ) : (
+                <form>
+                    <Input
+                        label='Title'
+                        id='title'
+                        name='title'
+                        type='text'
+                        placeholder='Title'
+                        errorMessage='Title is required'
+                        value={title}
+                        required
+                        onChange={(e) => handleInputChange(e)}
+                    />
+                </form>
+            )}
         </Dialog>
     );
 };

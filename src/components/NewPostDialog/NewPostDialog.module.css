@@ -1,0 +1,14 @@
+.newPostDialog {
+    min-width: 400px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing3);
+
+    .loaderContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1
+    }
+}

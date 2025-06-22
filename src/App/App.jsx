@@ -59,7 +59,7 @@ function AppContent(props) {
           confirmBtn='Go back to MyBlog'
           onConfirm={() => location.href=import.meta.env.VITE_BLOG_APP_URL}
         >  
-          <div className='font-sm' style={{marginBottom: 'var(--spacing4)'}}>
+          <div className='font-sm' style={{margin: 'var(--spacing5) 0'}}>
             <p>You are not logged in.</p>
             <p>Please login before continue.</p>
           </div> 

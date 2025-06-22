@@ -3,6 +3,7 @@ import dialogStyles from'./Dialog.module.css';
 import btnStyles from '../Button/Button.module.css';
 
 function Dialog ({ 
+    className='',
     isOpen, 
     title, 
     children, 
@@ -35,7 +36,7 @@ function Dialog ({
     return isOpen && (
         <div className={dialogStyles.overlay} onClick={onClose}>
             <div 
-                className={dialogStyles.dialog}
+                className={`${dialogStyles.dialog} ${className}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <div>

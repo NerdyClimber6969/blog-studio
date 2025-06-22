@@ -1,0 +1,34 @@
+.loader {
+  border-style: solid;
+  border-color: transparent;
+  border-top-style: solid;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 1s ease-out infinite;
+
+  &.small {
+    border-width: 8px;
+    border-top-width: 8px;
+    height: 50px;
+    width: 50px;
+  }
+
+  &.medium {
+    border-width: 9px;
+    border-top-width: 9px;
+    height: 85px;
+    width: 85px;
+  }
+
+  &.large {
+    border-width: 10px;
+    border-top-width: 10px;
+    height: 120px;
+    width: 120px;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

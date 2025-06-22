@@ -7,6 +7,7 @@ import { RecordCard, RecordCardSkeleton } from '../../components/RecordCard/';
 import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
 import { UnexpectedError, ErrorMessage } from '../../components/Error';
 import { EditIcon, DeleteIcon } from '../../icons';
+import SpinningLoader from '../../components/SpinningLoader/SpinningLoader.jsx';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
 import NewPostDialog from '../../components/NewPostDialog/NewPostDialog.jsx';
@@ -54,8 +55,8 @@ function PostListPage(props) {
     }, [searchParams]);
 
     const handleSubmit = useCallback(async (title) => {
-        closeDialog();
         await addPost(title)
+        closeDialog();
     }, []);
 
     const handleDelete = useCallback(async (postToDelete) => {
@@ -112,8 +113,10 @@ function PostListPage(props) {
                                             })}
                                             like={post.like}
                                             dislike={post.dislike}
-                                            renderAction={() => (
-                                                <div className='action-container' style={{flexShrink : 0}}>
+                                            renderAction={() => (post.loading ? (
+                                                <SpinningLoader size='small'/>
+                                            ) : (
+                                                <div style={{flexShrink : 0}}>
                                                     <button 
                                                         className={btnStyles.transparent}
                                                         style={{marginRight: 'var(--spacing3)' }}
@@ -127,7 +130,7 @@ function PostListPage(props) {
                                                         <DeleteIcon/>
                                                     </button>
                                                 </div>
-                                            )}
+                                            ))}
                                         />
                                     ))}                            
                                 </div> 

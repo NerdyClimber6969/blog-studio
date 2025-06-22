@@ -7,6 +7,7 @@ import { RecordCard, RecordCardSkeleton } from '../../components/RecordCard/';
 import { DeleteIcon } from '../../icons';
 import SearchToolBar from '../../components/SearchToolBar/SearchToolBar.jsx';
 import { UnexpectedError, ErrorMessage } from '../../components/Error';
+import SpinningLoader from '../../components/SpinningLoader/SpinningLoader.jsx';
 
 import useDialogManager from '../../hook/useDialogManager.jsx';
 import DeleteDialog from '../../components/DeleteDialog/DeleteDialog.jsx';
@@ -84,15 +85,18 @@ function CommentPage(props) {
                                         })}
                                         like={comment.like}
                                         dislike={comment.dislike}
-                                        renderAction={() => (
-                                            <div className='action-container'>
-                                                <button 
-                                                    className={btnStyles.transparent}
-                                                    onClick={() => openDialog('deleteDialog', { onConfirm: () => handleDelete(comment)})}
-                                                >
-                                                    <DeleteIcon/>
-                                                </button>
-                                            </div>  
+                                        renderAction={() => (comment.loading ? (
+                                                <SpinningLoader size='small' />
+                                            ) : (
+                                                <div className='action-container'>
+                                                    <button 
+                                                        className={btnStyles.transparent}
+                                                        onClick={() => openDialog('deleteDialog', { onConfirm: () => handleDelete(comment)})}
+                                                    >
+                                                        <DeleteIcon/>
+                                                    </button>
+                                                </div>  
+                                            )
                                         )}
                                     />
                                 ))}

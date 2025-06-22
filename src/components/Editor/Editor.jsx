@@ -8,11 +8,13 @@ function Editor({ content, ref }) {
     const editorInstance = useEditor({ 
         extensions: extensions, 
         content: content,
+        editable: true,
     });
 
     useImperativeHandle(ref, () => {
         return {
-            getContent: () => editorInstance?.getHTML() || ''
+            getContent: () => editorInstance?.getHTML() || '',
+            setEditable: (state) => editorInstance?.setEditable(state)
         }
     });
 

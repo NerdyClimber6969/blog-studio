@@ -2,16 +2,17 @@ import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import Editor from '../../components/Editor/Editor.jsx';
 import { UnexpectedError, PageNotFoundError } from '../../components/Error';
+import SpinningLoader from '../../components/SpinningLoader/SpinningLoader.jsx';
 import usePost from '../../hook/usePost.jsx';
 import styles from './PostEditPage.module.css';
 
 function PostEditPage() {
     const { postId } = useParams();
-    const { post, setPost, initialLoading, updateLoading, error, handlePostUpdate } = usePost(postId);
+    const { post, setPost, initialLoading, updateLoading, setUpdateLoading, error, handlePostUpdate } = usePost(postId);
     const editorRef = useRef();
 
 
-    function handleSave() {
+    async function handleSave() {
         const valueToUpdate = {
             title: post.title,
             content: editorRef.current.getContent(),
@@ -19,7 +20,13 @@ function PostEditPage() {
             status: post.status
         };
 
-        handlePostUpdate(valueToUpdate);
+        editorRef.current.setEditable(false);
+        setUpdateLoading(true);
+
+        await handlePostUpdate(valueToUpdate);
+
+        editorRef.current.setEditable(true);
+        setUpdateLoading(false);
     };
 
     if (!initialLoading && !updateLoading && error) {
@@ -32,59 +39,71 @@ function PostEditPage() {
     };
 
     return (
-        <main className={styles.editPage} >  
-            {initialLoading && <p className='font-sm'>Loading...</p>}  
-            {updateLoading && <p className='font-sm'>Updating...</p>}
-            {!initialLoading && !updateLoading && post && (
-                <>                  
-                    <h2 className='font-md mb5'>Edit</h2>
+        initialLoading ? (
+            <div className={styles.loaderContainer}>
+                <SpinningLoader/>
+            </div>
+        ) : (
+            <main className={styles.editPage} >  
+                {!error && post && (
+                    <>                  
+                        <h2 className='font-md mb5'>Edit</h2>
 
-                    <div className='mb6'>
-                        <h3 className='font-sm bold mb2'>Title</h3>
-                        <input
-                            className='font-sm' 
-                            value={post.title}
-                            onChange={(e) => setPost({...post, title: e.target.value })}
-                        />
-                    </div>
-
-                    <div className='mb6'>
-                        <h3 className='font-sm bold mb2'>Summary</h3>
-                        <input
-                            className='font-sm' 
-                            value={post.summary}
-                            onChange={(e) => setPost({...post, summary: e.target.value })}
-                        />
-                    </div>
-
-                    <div className='mb4'>
-                        <h3 className='font-sm bold mb2'>Content</h3>
-                        <Editor 
-                            content={post.content}
-                            ref={editorRef}
-                        />
-                    </div>
-
-                    <div>
-                        <div>
-                            <label htmlFor='status' className='font-sm'>Status:</label>
-                            <select 
+                        <div className='mb6'>
+                            <h3 className='font-sm bold mb2'>Title</h3>
+                            <input
                                 className='font-sm' 
-                                name='status' 
-                                id='status' 
-                                value={post.status} 
-                                onChange={(e) => setPost({...post, status: e.target.value })}
+                                value={post.title}
+                                onChange={(e) => setPost({...post, title: e.target.value })}
+                                disabled={updateLoading} 
+                            />
+                        </div>
+
+                        <div className='mb6'>
+                            <h3 className='font-sm bold mb2'>Summary</h3>
+                            <input
+                                className='font-sm' 
+                                value={post.summary}
+                                onChange={(e) => setPost({...post, summary: e.target.value })}
+                                disabled={updateLoading} 
+                            />
+                        </div>
+
+                        <div className='mb4'>
+                            <h3 className='font-sm bold mb2'>Content</h3>
+                            <Editor 
+                                content={post.content}
+                                ref={editorRef}
+                            />
+                        </div>
+
+                        <div className={styles.editAction}>
+                            <div>
+                                <label htmlFor='status' className='font-sm'>Status:</label>
+                                <select 
+                                    className='font-sm' 
+                                    name='status' 
+                                    id='status' 
+                                    value={post.status} 
+                                    onChange={(e) => setPost({...post, status: e.target.value })}
+                                    disabled={updateLoading} 
+                                >
+                                    <option value='drafted'>Drafted</option>
+                                    <option value='published'>Published</option>
+                                    <option value='archived'>Archived</option>
+                                </select>
+                            </div>  
+                            <button 
+                                disabled={updateLoading} 
+                                onClick={handleSave}
                             >
-                                <option value='drafted'>Drafted</option>
-                                <option value='published'>Published</option>
-                                <option value='archived'>Archived</option>
-                            </select>
-                        </div>  
-                        <button onClick={handleSave}>Save</button>
-                    </div>
-                </>
-            )}
-        </main>
+                                Save
+                            </button>
+                        </div>
+                    </>
+                )}
+            </main>
+        )        
     );
 };
 

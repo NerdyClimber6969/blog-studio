@@ -50,6 +50,7 @@ function usePost(postId) {
         setPost,
         initialLoading, 
         updateLoading, 
+        setUpdateLoading,
         error, 
         setError, 
         handlePostUpdate 

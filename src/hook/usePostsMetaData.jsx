@@ -17,7 +17,10 @@ function usePostsMetaData(searchParams) {
             notifySuccess: false,
             notifyError: true,
             onSuccess: (response) => {
-                setData(response);
+                setData({
+                    total: response.total,
+                    posts: response.posts.map((post) => ({...post, loading: false }))
+                });
             },
             onError: (error) => setError(error)
         });
@@ -29,7 +32,7 @@ function usePostsMetaData(searchParams) {
         await handleApiCall(() => API.createPost(title), {
             successMessage: 'Post created',
             onSuccess: (response) => setData((current) => ({
-                posts: [response.post, ...(current.posts.slice(0, 8))],
+                posts: [{ ...response.post, loading: false }, ...(current.posts.slice(0, 8))],
                 total: current.total + 1,
             }))
         });
@@ -38,16 +41,32 @@ function usePostsMetaData(searchParams) {
     }, []);
 
     const deletePost = useCallback(async (postToDelete) => {
+        setData((current) => ({
+            posts: current.posts.map((post) => 
+                post.id === postToDelete.id ? { ...post, loading: true } : post
+            ),
+            total: current.total,
+        }));
+
         await handleApiCall(() => API.deletePost(postToDelete.id), { 
             successMessage:'Post deleted',
             onSuccess: () => setData((current) => ({
                 posts: current.posts.filter((post) => post.id !== postToDelete.id),
                 total: current.total - 1,
             })),
+            onError: (error) => {
+                setData((current) => ({
+                    posts: current.posts.map((post) => 
+                        post.id === postToDelete.id ? { ...post, loading: false } : post
+                    ),
+                    total: current.total,
+                }));
+                setError(error);
+            }
         });
 
         return;
-    }, [])
+    }, []);
 
     useEffect(() => {
         fetchPostsMetaData(searchParams);

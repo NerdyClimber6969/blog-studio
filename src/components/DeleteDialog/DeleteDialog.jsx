@@ -23,7 +23,7 @@ function DeleteDialog({isOpen, onConfirm, onClose}) {
             onClose={(e) => handleClose(e)}
             showCloseButton={false}
         >
-            <div className='font-sm' style={{marginBottom: 'var(--spacing4)'}}>
+            <div className='font-sm' style={{margin: 'var(--spacing5) 0'}}>
                 <p>Are you sure you want to delete?</p>
             </div>
         </Dialog>
