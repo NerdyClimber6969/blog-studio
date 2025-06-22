@@ -1,4 +1,4 @@
-import StatCard from '../../components/StatCard/StatCard.jsx';
+import { StatCard, StatCardSkeleton } from '../../components/StatCard';
 import { UnexpectedError } from '../../components/Error';
 import useSummary from '../../hook/useSummary.jsx';
 import styles from './DashboardPage.module.css';
@@ -8,7 +8,11 @@ function DashboardPage(props) {
 
     return (
         <main className='DashboardPage'>
-            {loading && <p className='font-sm'>Loading...</p>}
+            {loading && (
+                <div className={styles.cardGroup}>
+                    {Array(2).fill().map((_, index) => (<StatCardSkeleton key={index}/>))}
+                </div>
+            )}
             {!loading && error && !summary && <UnexpectedError/>}
             {!loading && !error && summary && (
                 <>

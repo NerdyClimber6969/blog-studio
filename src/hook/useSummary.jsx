@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import API from '../services/apiService.js';
 import { useNotifications } from '../context/NotificationProvider.jsx';
 
@@ -8,8 +8,11 @@ function useSummary() {
     const [error, setError] = useState();
     const { handleApiCall } = useNotifications();
 
-    useEffect(() => {
-        const fetchSummary = async () => {
+    const fetchSummary = useCallback(async () => {
+            setError(null);
+            setSummary(null);
+            setLoading(true);
+
             await handleApiCall(() => API.getSummary(), {
                 notifySuccess: false,
                 notifyError: true,
@@ -18,13 +21,11 @@ function useSummary() {
             });
 
             setLoading(false);
-        };
-
-        setError(null);
-        setLoading(true);
-        fetchSummary();
     }, []);
 
+    useEffect(() => {
+        fetchSummary();
+    }, []);
 
     return { summary, setSummary, loading, error, setError };
 };
