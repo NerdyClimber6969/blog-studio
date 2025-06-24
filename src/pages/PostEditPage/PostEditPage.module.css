@@ -8,6 +8,14 @@
 .editPage {
     padding-bottom: var(--spacing6);
 
+    .inputContainer {
+        min-height: 120px;
+    }
+
+    span {
+        color: var(--color-error); 
+    }
+
     > .editAction { 
         display: flex;
         gap: var(--spacing4);

@@ -88,7 +88,7 @@ function CommentPage(props) {
                                         renderAction={() => (comment.loading ? (
                                                 <SpinningLoader size='small' />
                                             ) : (
-                                                <div className='action-container'>
+                                                <div style={{ flexShrink: 0 }}>
                                                     <button 
                                                         className={btnStyles.transparent}
                                                         onClick={() => openDialog('deleteDialog', { onConfirm: () => handleDelete(comment)})}

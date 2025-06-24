@@ -5,7 +5,7 @@ import { SideBarIcon } from '../../icons/';
 import styles from './Header.module.css';
 
 function Header({ className, toggleSideBar }) {
-    const { logout } = useAuthen();
+    const { handleLogout } = useAuthen();
     
     return (
         <header className={`${styles.header} ${className ? className : ''}`}>
@@ -19,7 +19,7 @@ function Header({ className, toggleSideBar }) {
             <div>
                 <nav>
                     <ul className={styles.navBar}>
-                        <li className='font-sm'><Link onClick = {() => logout()}>Logout</Link></li>
+                        <li className='font-sm'><Link onClick = {handleLogout}>Logout</Link></li>
                         <ThemeFlyout/>
                     </ul>
                 </nav>

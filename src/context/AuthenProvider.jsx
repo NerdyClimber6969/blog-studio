@@ -8,31 +8,39 @@ function AuthenProvider({ children }) {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [logoutTimer, setLogoutTimer] = useState(null);
     const { handleApiCall } = useNotifications();
 
     const verifyToken = async () => {
+        setLoading(true);
+
         await handleApiCall(() => API.verify(), {
             notifySuccess: false,
             notifyError: false,
             onSuccess: (response) => {
                 setUser(response.username);
                 setIsAuthenticated(true);
+                scheduleLogout(response.exp);
             },
             onError: (error) => {
-                logout();
+                handleLogout();
             }
         });
   
         setLoading(false);
     };
 
-    async function logout() {
+    async function handleLogout() {
         await handleApiCall(() => API.logout(), {
             notifySuccess: false,
             notifyError: true,
             onSuccess: () => {
                 setUser(null);
                 setIsAuthenticated(false);
+                
+                clearTimeout(logoutTimer)
+                setLogoutTimer(null);
+
                 return;
             }
         });
@@ -40,31 +48,23 @@ function AuthenProvider({ children }) {
         setLoading(false);
     };
 
-    useEffect(() => {
-        // Initial check on page load
-        verifyToken();       
-    }, []);
+    function scheduleLogout(exp) {
+        const timeRemaining = exp - Date.now();
 
-    useEffect(() => {
-        let timerId;
+        if (timeRemaining > 0 && !logoutTimer) {
+            const timer = setTimeout(() => { handleLogout() }, timeRemaining);
+            setLogoutTimer(timer);
+        };
+    };
 
-        if (isAuthenticated) {
-            //Run every 5 minutes
-            timerId = setInterval(verifyToken, 1000 * 60 * 5); 
-        };
-        
-        return () => {
-            if (timerId) {
-                clearInterval(timerId);
-            };
-        };
-    }, [isAuthenticated]);
+    // Initial check on page load
+    useEffect(() => {verifyToken()}, []);
 
     return (
         <AuthenContext.Provider value={{
             user, 
             setUser, 
-            logout,
+            handleLogout,
             isAuthenticated,
             setIsAuthenticated,
             loading

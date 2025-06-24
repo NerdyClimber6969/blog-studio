@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import Editor from '../../components/Editor/Editor.jsx';
 import { UnexpectedError, PageNotFoundError } from '../../components/Error';
 import SpinningLoader from '../../components/SpinningLoader/SpinningLoader.jsx';
@@ -11,6 +11,18 @@ function PostEditPage() {
     const { post, setPost, initialLoading, updateLoading, setUpdateLoading, error, handlePostUpdate } = usePost(postId);
     const editorRef = useRef();
 
+    const getInvalidFieldMessages = useCallback((error) => {
+        if (!error || error.name !== 'ValidationError') return null;
+
+        const messages = {}
+        for (const field of error.details.invalidFieldError.fields) {
+            messages[field.path] = field.message
+        };
+
+        return messages;
+    }, []);
+
+    const validationMessages = getInvalidFieldMessages(error);
 
     async function handleSave() {
         const valueToUpdate = {
@@ -32,7 +44,9 @@ function PostEditPage() {
     if (!initialLoading && !updateLoading && error) {
         switch (error.name) {
             case 'ResourceNotFoundError':
-                return (<PageNotFoundError/>);       
+                return (<PageNotFoundError/>);  
+            case 'ValidationError':
+                break;
             default:
                 return (<UnexpectedError/>)
         };
@@ -45,21 +59,23 @@ function PostEditPage() {
             </div>
         ) : (
             <main className={styles.editPage} >  
-                {!error && post && (
+                {post && (
                     <>                  
                         <h2 className='font-md mb5'>Edit</h2>
 
-                        <div className='mb6'>
+                        <div className={`mb6 ${styles.inputContainer}`}>
                             <h3 className='font-sm bold mb2'>Title</h3>
                             <input
                                 className='font-sm' 
                                 value={post.title}
                                 onChange={(e) => setPost({...post, title: e.target.value })}
                                 disabled={updateLoading} 
+                                required={true}
                             />
+                            {validationMessages && <span className='font-xxs'>{validationMessages.title}</span>}
                         </div>
 
-                        <div className='mb6'>
+                        <div className={`mb6 ${styles.inputContainer}`}>
                             <h3 className='font-sm bold mb2'>Summary</h3>
                             <input
                                 className='font-sm' 
@@ -92,10 +108,11 @@ function PostEditPage() {
                                     <option value='published'>Published</option>
                                     <option value='archived'>Archived</option>
                                 </select>
+                                {validationMessages && <span className='font-xxs' style={{marginLeft: 'var(--spacing3)'}}>{validationMessages.status}</span>}  
                             </div>  
                             <button 
                                 disabled={updateLoading} 
-                                onClick={handleSave}
+                                onClick={handleSave} 
                             >
                                 Save
                             </button>

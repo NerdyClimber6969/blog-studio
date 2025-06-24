@@ -3,13 +3,13 @@ import DashboardPage from './pages/DashboardPage/DashboardPage.jsx';
 import PostListPage from './pages/PostListPage/PostListPage.jsx';
 import PostEditPage from './pages/PostEditPage/PostEditPage.jsx';
 import CommentPage from './pages/CommentPage/CommentPage.jsx';
-import { PageNotFoundError } from './components/Error';
+import { PageNotFoundError, UnexpectedError } from './components/Error';
 
 const routes = [
   {
     path: '/',
     element: <App />,
-    errorElement: <PageNotFoundError />,
+    errorElement: <UnexpectedError/>,
     children: [
       { index: true, element: <DashboardPage /> },
       { 
@@ -21,6 +21,10 @@ const routes = [
       },
       { path: 'comments', element: <CommentPage /> }
     ]
+  },
+  {
+    path: '*',
+    element: <PageNotFoundError />
   }
 ];
 

@@ -9,6 +9,7 @@
         display: flex;
         justify-content: space-between;
         overflow: hidden;
+        gap: var(--spacing3);
         
         > div {
             overflow: hidden;
@@ -17,10 +18,22 @@
         h3, p {
             overflow: hidden;
             text-overflow: ellipsis;
+            text-wrap: pretty;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
         }
 
         h3 {
+            line-height: 1.2;
             font-weight: bold;
+            line-clamp: 7;
+            -webkit-line-clamp: 7;    
+        }
+
+        p {
+            line-height: 1.2;
+            line-clamp: 5;
+            -webkit-line-clamp: 5;            
         }
     }
 
