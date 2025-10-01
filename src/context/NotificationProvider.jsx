@@ -34,7 +34,7 @@ function NotificationProvider(props) {
         } else {
             return; // Invalid message format
         };
-        
+
         return setNotifications(notificationProps);
     };
 
@@ -80,6 +80,7 @@ function NotificationProvider(props) {
                 setNotifications, 
                 removeNotification,
                 handleApiCall,
+                handleShowNotifications
             }}
         >
             {props.children}

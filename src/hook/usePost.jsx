@@ -6,6 +6,7 @@ function usePost(postId) {
     const [initialLoading, setInitialLoading] = useState(true);
     const [updateLoading, setUpdateLoading] = useState(false);
     const [post, setPost] = useState();
+    const [saveStatus, setSaveStatus] = useState();
     const [error, setError] = useState();
     const { handleApiCall } = useNotifications();
 
@@ -20,6 +21,7 @@ function usePost(postId) {
                 notifyError: true,
                 onSuccess: (response) => {
                     setPost(response.post);
+                    setSaveStatus({ postContent: true, thumbnail: true });
                 },
                 onError: (error) => setError(error)
             });
@@ -31,29 +33,37 @@ function usePost(postId) {
     }, [])
 
 
-    async function handlePostUpdate({ title, content, summary, status }) {
-        setError(null);
-        setUpdateLoading(true);
-
+    async function savePostContent({ title, content, summary, status }) {
         await handleApiCall(() => API.updatePost(postId, { title, content, summary, status }), { 
-            successMessage: 'Updated successfully', 
-            errorMessage: 'Update unsuccessful',
-            onSuccess: (response) => setPost(response.post),
+            successMessage: 'Content Updated Sucessfully',
+            errorMessage: 'Content Updated Unsucessfully',
+            onSuccess: (response) => {
+                setPost({ ...response.post, thumbnailURL: post.thumbnailURL });
+                setSaveStatus({ ...saveStatus, postContent: true });
+            },
             onError: (error) => setError(error)
         });
+    };
 
-        setUpdateLoading(false);
+    async function saveThumbnail(postId, formData) {
+        await handleApiCall(() => API.updateThumbnail(postId, formData), {
+            successMessage: 'Thumbnail Updated Sucessfully',
+            errorMessage: 'Thumbnail Updated Unsucessfully',
+            onSuccess: (response) => {
+                setPost({ ...post, thumbnailURL: response.thumbnailUrl })
+                setSaveStatus({ ...saveStatus, thumbnail: true });
+            },
+            onError: (error) => setError(error)
+        });
     };
 
     return { 
-        post, 
-        setPost,
+        post, setPost,
         initialLoading, 
-        updateLoading, 
-        setUpdateLoading,
-        error, 
-        setError, 
-        handlePostUpdate 
+        updateLoading, setUpdateLoading,
+        error, setError, 
+        savePostContent, saveThumbnail,
+        saveStatus, setSaveStatus
     }
 };
 

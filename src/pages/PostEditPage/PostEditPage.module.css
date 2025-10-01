@@ -16,6 +16,31 @@
         color: var(--color-error); 
     }
 
+    > .thumnailContainer {
+        > div:first-child {
+            display: flex;
+            gap: var(--spacing3);
+            align-items: flex-start;
+        }
+
+        > div:nth-child(2) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+
+            > img {
+                width: 100%;
+                height: auto;
+                max-width: 800px;
+                object-fit: contain;
+                aspect-ratio: 16/9;
+                border-radius: var(--radius-box);
+                border: solid var(--color-base-content) var(--border);
+            }
+        }
+    }
+
     > .editAction { 
         display: flex;
         gap: var(--spacing4);

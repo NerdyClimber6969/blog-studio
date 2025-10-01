@@ -4,11 +4,16 @@ import MenuBar from './MenuBar/MenuBar.jsx';
 import extensions from './extensions.jsx';
 import './Editor.css'
 
-function Editor({ content, ref }) {
+function Editor({ content, ref, onChange }) {
     const editorInstance = useEditor({ 
         extensions: extensions, 
         content: content,
         editable: true,
+        onUpdate: ({ editor }) => {
+            if (editor.isFocused) {
+                onChange();
+            };
+        }
     });
 
     useImperativeHandle(ref, () => {

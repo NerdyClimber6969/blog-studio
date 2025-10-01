@@ -11,10 +11,8 @@ class ApiError extends Error {
 function createAPIService() {
     const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-    async function request(endpoint, method='GET', data=null, includeCredentials=false) {
-        const headers = {
-            'Content-Type': 'application/json'
-        };
+    async function request(endpoint, method='GET', data=null, includeCredentials=false, contentType='application/json') {
+        const headers = {};
 
         const options = {
             method,
@@ -24,9 +22,16 @@ function createAPIService() {
         if (includeCredentials) {
             options.credentials = 'include';
         };
-          
+
         if (data) {
-            options.body = JSON.stringify(data);
+            switch (contentType) {
+                case 'application/json': 
+                    options.body = JSON.stringify(data); 
+                    options.headers['Content-Type'] = 'application/json'
+                    break;
+                default:
+                    options.body = data;
+            }
         };
 
         try {
@@ -52,6 +57,7 @@ function createAPIService() {
         getComments: (searchParams) => request(`/users/comments${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
         createPost: (title) => request('/users/posts', 'POST', { title }, true),
         updatePost: (postId, { title, content, summary, status }) => request(`/users/posts/${postId}`, 'PATCH', { title, content, summary, status }, true),
+        updateThumbnail: (postId, formData) => request(`/users/posts/${postId}/thumbnails`, 'POST', formData, true, null),
         getPostsMetaData: (searchParams) => request(`/users/posts${searchParams ? `?${searchParams.toString()}` : ''}`, 'GET', null, true),
         getPost: (postId) => request(`/users/posts/${postId}`, 'GET', null, true),
         deletePost: (postId) => request(`/users/posts/${postId}`, 'DELETE', null, true)
